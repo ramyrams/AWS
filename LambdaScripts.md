@@ -1,6 +1,6 @@
 
 
-###Stop Instances
+### Stop Instances
 
 import boto3
 region = 'us-east-2'
@@ -11,7 +11,7 @@ def lambda_handler(event, context):
     ec2.stop_instances(InstanceIds=instances)
     print('stopped your instances: ' + str(instances))
 
-###Start Instances
+### Start Instances
 
 import boto3
 region = 'us-east-2'
