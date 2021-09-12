@@ -1,3 +1,43 @@
+aws --version
+
+aws configure
+
+
+aws configure --profile produser
+aws s3 ls --profile produser
+
+aws configure set region us-west-2 --profile integ
+aws configure get region --profile integ
+aws configure import --csv file://credentials.csv
+aws configure list
+
+aws ec2 describe-instances --profile user1
+
+AWS home directory.
+
+C:\Users\keert\.aws
+	config
+	credentials
+	
+How to set environment variables	
+C:\> setx AWS_ACCESS_KEY_ID AKIAIOSFODNN7EXAMPLE
+C:\> setx AWS_SECRET_ACCESS_KEY wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+C:\> setx AWS_DEFAULT_REGION us-west-2	
+
+
+aws help
+aws ec2 help
+
+
+Create a key pair
+ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
+
+Display your key pair
+aws ec2 describe-key-pairs --key-name MyKeyPair
+
+Delete your key pair
+aws ec2 delete-key-pair --key-name MyKeyPair
+
 ### Install Extra Packages for Enterprise Linux (EPEL)
 amazon-linux-extras install epel -y
 
