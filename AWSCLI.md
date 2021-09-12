@@ -26,7 +26,8 @@ C:\> setx AWS_DEFAULT_REGION us-west-2
 
 
 aws help
-aws ec2 help
+aws s3 help
+aws s3 mb help
 
 
 Create a key pair
