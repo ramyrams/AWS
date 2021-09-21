@@ -32,3 +32,79 @@ Min Supported: 10.0.0.0/28
 Tool:
 https://www.ipaddressguide.com/cidr
 
+
+
+VPC - Ireland
+10.0.0.01/16
+Range: 10.0.0.0 - 10.0.255.255
+Total IP: 65???
+
+Subnet01-AZ1 
+Named as public Subnet
+10.0.0.0/24
+Range: 10.0.0.0 - 10.0.0.255
+Total IP: 256
+
+Subnet02-AZ2
+Nameed as private Subnet
+10.0.1.0/24
+Range: 10.0.1.0 - 10.0.1.255
+Total IP: 256
+
+Add Webserver in Subnet01
+IP: 10.0.0.8
+
+Add DB Server in Subnet02
+IP: 10.0.1.15
+
+Add Route Table (Subnet 01)
+10.0.0.0/16 local
+0.0.0.0/0 inetnet gatewayid
+
+Add ROute Table (Subnet 02)
+10.0.0.0/16 local
+0.0.0.0/0 nat-gateway-id
+
+Add Internet gateway for subnet0q
+
+NAT Gateway
+
+VPV is your virtual network in AWS Clud isolated fro other AWS customers
+Full control over your VPC(Network, security, etc)
+1 VPV for 1 region
+1VPC can have multuple subnet
+1 submnet for 1 AZ
+1 subnet must be assioated with 1 route table
+Route table can have multiple associatged subnets
+Routing inside the VPC is always possible with VPC router
+
+
+VPC constructs
+IP address range (CIDR Block)
+VPC router
+Route Table
+Internet Gateway
+Security Groups
+Network ACL
+Virtual private Gateway
+
+Max CIDR range for VPC is /16 (65536 IP Address)
+
+Min CIDR range for VPC is /28 (16)IP Address)
+
+Subnet within VPC can't have overllapping IP ranges
+AWS reserver 4 IP Address from CIDR Range
+You can't chagne or modify CIDR block of your VPC after creation
+YOu can extent your VPC CIDR block
+
+VPC resources can talk to internet via internet Gateway (IGW)
+Ineternet Gateway is a fully managed, higly scalable service.
+It performs network address transulation (Private <-> Private)
+
+
+
+
+
+
+
+
