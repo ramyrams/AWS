@@ -87,6 +87,15 @@ NACL rules are applied to all the instance within the subnet
 
 
 
+Create security group webserver-Sg
+- Allow anyone from internet to access the webserver
+HTTP 80 0.0.0.0/0
+HTTPS 443 0.0.0.0/0
+
+Create security group DBserver-Sg
+- Allow resouce who got webserber-sg permission
+
+All TCP 4000 webserver-sg
 
 
 
