@@ -29,6 +29,68 @@ Max Supported: 10.0.0.0/16
 Min Supported: 10.0.0.0/28
 
 
+VPV is your virtual network in AWS Clud isolated fro other AWS customers
+Full control over your VPC(Network, security, etc)
+1 VPV for 1 region
+1VPC can have multuple subnet
+1 submnet for 1 AZ
+1 subnet must be assioated with 1 route table
+Route table can have multiple associatged subnets
+Routing inside the VPC is always possible with VPC router
+
+
+VPC constructs
+IP address range (CIDR Block)
+VPC router
+Route Table
+Internet Gateway
+Security Groups
+Network ACL
+Virtual private Gateway
+
+Max CIDR range for VPC is /16 (65536 IP Address)
+
+Min CIDR range for VPC is /28 (16)IP Address)
+
+Subnet within VPC can't have overllapping IP ranges
+AWS reserver 4 IP Address from CIDR Range
+You can't chagne or modify CIDR block of your VPC after creation
+YOu can extent your VPC CIDR block
+
+VPC resources can talk to internet via internet Gateway (IGW)
+Ineternet Gateway is a fully managed, higly scalable service.
+It performs network address transulation (Private <-> Private)
+
+
+
+We have two securityconstrcut for VPC
+NACL 
+Security Groups
+
+Elastic network Interface (it is vitirual network interfact attached to virutual machine)
+
+Security groups operates at ENI of the instance
+Secutity groups are vitural firewall
+THere allow or block traiffic in and out of the EC2 instance
+EC2 instance can have up to 5 security group
+Secuity groups are stateful
+Cam have only allow rules
+If no rule is defined in the SG, traffic is blocked to the instance
+
+
+NACL operates at subnet level, gatekeep of the submet
+NACL are stateless
+BOth allow and deny rules are possible
+NACL rules evalued from lower numner to hight number
+Lower ril number, hight the priority
+NACL rules are applied to all the instance within the subnet
+
+
+
+
+
+
+
 Tool:
 https://www.ipaddressguide.com/cidr
 
@@ -68,39 +130,6 @@ Add ROute Table (Subnet 02)
 Add Internet gateway for subnet0q
 
 NAT Gateway
-
-VPV is your virtual network in AWS Clud isolated fro other AWS customers
-Full control over your VPC(Network, security, etc)
-1 VPV for 1 region
-1VPC can have multuple subnet
-1 submnet for 1 AZ
-1 subnet must be assioated with 1 route table
-Route table can have multiple associatged subnets
-Routing inside the VPC is always possible with VPC router
-
-
-VPC constructs
-IP address range (CIDR Block)
-VPC router
-Route Table
-Internet Gateway
-Security Groups
-Network ACL
-Virtual private Gateway
-
-Max CIDR range for VPC is /16 (65536 IP Address)
-
-Min CIDR range for VPC is /28 (16)IP Address)
-
-Subnet within VPC can't have overllapping IP ranges
-AWS reserver 4 IP Address from CIDR Range
-You can't chagne or modify CIDR block of your VPC after creation
-YOu can extent your VPC CIDR block
-
-VPC resources can talk to internet via internet Gateway (IGW)
-Ineternet Gateway is a fully managed, higly scalable service.
-It performs network address transulation (Private <-> Private)
-
 
 
 
