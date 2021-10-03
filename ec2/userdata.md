@@ -1,6 +1,6 @@
 
 
-'''java
+```java
 #!/bin/bash
 yum update -y
 yum install httpd -y
@@ -13,7 +13,7 @@ curl http://169.254.169.254/latest/meta-data/public-ipv4 >> index.html
 echo "<h1>Hello World From Rams at $(hostname -f) in AZ $EC2_AVAIL_ZONE </h1>" >> index.html
 echo "<h1>Current Time: $(date) </h1>" >> index.html
 echo "</body></html>" >> index.html
-'''
+```
 
 
 #!/bin/bash  
