@@ -96,3 +96,77 @@ REM Command prompt commands which will execute every time the instance starts.
 <persist>true</persist>
 ```
 
+
+```java
+Userdata: Installing IIS on Windows Server 
+
+<powershell> 
+Start-Transcript; 
+
+# Install IIS
+Import-Module ServerManager; 
+Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName 'IIS-WebServerRole', 'IIS-WebServer', 'IIS-ManagementConsole';
+
+# Configure Bindings to :443
+New-WebBinding -Name "Default Web Site" -IP "*" -Port 443 -Protocol https -SslFlags 0;
+$newCert = New-SelfSignedCertificate -DnsName localhost -CertStoreLocation cert:\LocalMachine\My; 
+$SslBinding = Get-WebBinding -Name "Default Web Site" -Protocol "https";
+$SslBinding.AddSslCertificate($newCert.GetCertHashString(), "my"); 
+Get-WebBinding -Port 80 -Name "Default Web Site" | Remove-WebBinding;
+
+# Install CodeDeploy Agent 
+Import-Module AWSPowerShell; 
+New-Item -Path "C:\Temp" -ItemType "directory" -Force; 
+Read-S3Object -BucketName aws-codedeploy-us-east-1 -Key latest/codedeploy-agent.msi -File c:\temp\codedeploy-agent.msi; 
+c:\temp\codedeploy-agent.msi /quiet /l c:\temp\host-agent-install-log.txt;
+</powershell>
+```
+
+```java
+<powershell>
+Import-Module ServerManager
+tzutil /s "AUS Eastern Standard Time"
+Add-WindowsFeature Web-WebServer -includeAllSubFeature -logpath $env:temp\\Web-WebServer_feature.log
+Add-WindowsFeature Web-Mgmt-Tools -includeAllSubFeature -logpath $env:temp\\Web-Mgmt-Tools_feature.log
+</powershell>
+
+```
+
+
+```java
+<powershell>
+Import-Module ServerManager;
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Install-Module -Name AWSPowerShell -Force
+#
+# Variable Definition
+#
+$webAppName = "MyWebApp"
+$website = "Default Web Site"
+$s3Path = "{BUCKET_NAME}"
+$zipfileName = "MyWebApp.zip"
+
+$webAppPath = "c:\inetpub\wwwroot\" + $webAppName
+$webApplication = "IIS:\sites\" + $website + "\" + $webAppName
+
+#
+# Install the Web server Feature of Windows, Including the ASP .NET Features.
+#
+Install-WindowsFeature Web-Server -IncludeManagementTools -IncludeAllSubFeature
+Import-Module WebAdministration;
+
+Read-S3Object -BucketName $s3Path -Key $zipfileName -File "c:\inetpub\wwwroot\$zipfileName"
+$shell = new-object -com shell.application
+$zip = $shell.NameSpace("c:\inetpub\wwwroot\" + $zipfileName)
+foreach($item in $zip.items())
+{
+    $shell.Namespace("c:\inetpub\wwwroot\").copyhere($item)
+}
+
+#
+# Set up the web application in the default web site.
+#
+New-WebApplication -Name $webAppName -ApplicationPool ".NET v4.5" -PhysicalPath $webAppPath -Site $website -force
+Set-WebConfiguration system.web/authentication $webApplication -value @{mode='Forms'}
+</powershell>
+```
