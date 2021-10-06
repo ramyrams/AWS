@@ -83,7 +83,7 @@ def lambda_handler(event, context):
        "Quotient": quotient
    }
    
-   ```py
+```
    
 ```json   
 {
