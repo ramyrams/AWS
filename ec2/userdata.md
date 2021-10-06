@@ -55,6 +55,13 @@ chkconfig httpd on
 ```
 
 
+```java
+#!/bin/bash
+sudo apt update -y && sudo apt install -y nginx
+sudo systemctl start nginx
+```
+
+
 # Here is a sample user-data script which sets up an Ubuntu LAMP server on a new EC2 instance:   
 ```java
 #!/bin/bash
