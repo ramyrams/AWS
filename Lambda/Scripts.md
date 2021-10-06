@@ -91,3 +91,74 @@ def lambda_handler(event, context):
    "Number2": 20
 }
 ```
+
+
+
+def my_handler(event, context):
+   return "aws lambda in python using zip file"
+
+
+def my_handler(event, context):
+   print("Log stream name:", context.log_stream_name)
+   print("Log group name:",  context.log_group_name)
+   print("Request ID:",context.aws_request_id)
+   print("Mem. limits(MB):", context.memory_limit_in_mb)
+   print("Time remaining (MS):", context.get_remaining_time_in_millis())
+   return "aws lambda in python using zip file"
+
+
+client_context.client.installation_id
+client_context.client.app_title
+client_context.client.app_version_name
+client_context.client.app_version_code
+client_context.client.app_package_name
+client_context.custom - it has dict of custom values from the mobile client app
+client_context.env - it has dict of environment details from the AWS Mobile SDK
+
+
+
+def my_handler(event, context):
+   print("Log stream name:", context.log_stream_name)
+   print("Log group name:",  context.log_group_name)
+   print("Request ID:",context.aws_request_id)
+   print("Mem. limits(MB):", context.memory_limit_in_mb)
+   print("Time remaining (MS):", context.get_remaining_time_in_millis())
+   return "aws lambda in python using zip file"
+
+
+
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+def my_handler(event, context):
+   logger.info('Using logger to print messages to cloudwatch logs')
+   return "aws lambda in python using zip file"
+
+
+
+
+def error_handler(event, context):
+   raise Exception('Error Occured!')
+
+
+exports.handler = function(event, context, callback) {
+   console.log("Incoming Event: ", event);
+   const bucket = event.Records[0].s3.bucket.name;
+   const filename = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+   const message = `File is uploaded in - ${bucket} -> ${filename}`;
+   console.log(message);
+   callback(null, message);
+};
+
+
+
+exports.handler = function(event, context, callback) {
+   console.log("Incoming Event: ", event);
+   const bucket = event.Records[0].s3.bucket.name;
+   const filename = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+   const message = `File is uploaded in - ${bucket} -> ${filename}`;
+   console.log(message);
+   callback(null, message);
+};
+
+
