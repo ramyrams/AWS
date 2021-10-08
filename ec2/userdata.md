@@ -9,9 +9,14 @@ chkconfig httpd on
 cd /var/www/html
 EC2ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id) 
 EC2_AVAIL_ZONE=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
-echo "<html><body>IP address of this instance: " >> index.html
-curl http://169.254.169.254/latest/meta-data/public-ipv4 >> index.html
-echo "<h1>Hello World From Rams at $(hostname -f) in AZ $EC2_AVAIL_ZONE </h1>" >> index.html
+REGION=$(curl -s 169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.$//')
+IPADR=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) 
+
+echo "<html><body>" >> index.html
+echo "<h1>Rams Test Machine: $(hostname -f) - ($EC2ID)</h1>" >> index.html
+echo "<h1>IP Address: $IPADR</h1>" >> index.html
+echo "<h1>AZ : $EC2_AVAIL_ZONE </h1>" >> index.html
+echo "<h1>Region: $REGION </h1>" >> index.html
 echo "<h1>Current Time: $(date) </h1>" >> index.html
 echo "</body></html>" >> index.html
 ```
