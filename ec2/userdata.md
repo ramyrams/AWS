@@ -7,6 +7,7 @@ yum install httpd -y
 service httpd start
 chkconfig httpd on
 cd /var/www/html
+EC2ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id) 
 EC2_AVAIL_ZONE=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
 echo "<html><body>IP address of this instance: " >> index.html
 curl http://169.254.169.254/latest/meta-data/public-ipv4 >> index.html
