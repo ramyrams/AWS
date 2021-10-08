@@ -63,6 +63,30 @@ sudo systemctl start nginx
 ```
 
 
+# Install Node and node app
+```java
+#!/bin/bash
+yum update -y
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+yum install nodejs -y
+sudo npm install pm2 -g
+pm2 update
+cd /home/ec2-user
+wget https://github.com/teacheramitk/CRUD-APP/archive/refs/heads/master.zip
+unzip master
+cd CRUD-APP-master
+npm install
+pm2 start -f app.js
+sleep 10
+```
+
+```java
+http://publicip:3000/
+Security Group TCP 3000
+```
+
+
+
 # Here is a sample user-data script which sets up an Ubuntu LAMP server on a new EC2 instance:   
 ```java
 #!/bin/bash
@@ -71,6 +95,23 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update && apt-get upgrade -y
 tasksel install lamp-server
 echo "Please remember to set the MySQL root password!"
+```
+
+# Install have and call the lifecycle-hook
+```java
+#!/bin/bash
+
+yum update -y && \
+
+sudo yum install java-1.8.0-openjdk-devel && \
+INSTANCE_ID="`wget -q -O - http://instance-data/latest/meta-data/instance-id`" && \
+
+aws autoscaling complete-lifecycle-action --lifecycle-action-result CONTINUE --instance-id $INSTANCE_ID --lifecycle-hook-name helloworld-hook --auto-scaling-group-name helloworld-asg --region us-east-1 || \
+
+aws autoscaling complete-lifecycle-action --lifecycle-action-result ABANDON --instance-id $INSTANCE_ID --lifecycle-hook-name helloworld-hook --auto-scaling-group-name helloworld-asg --region us-east-1
+
+# installs only JRE.
+sudo yum install java-1.8.0-openjdk 
 ```
 
 
